@@ -32,7 +32,6 @@ object FileServerPlan extends unfiltered.filter.Plan {
   def intent = {
     case GET(Path(xs)) =>
       val requestedFile = new JFile(".", xs).getAbsoluteFile
-      println(s"file: ${requestedFile}")
 
       val response: unfiltered.response.ResponseFunction[Any] =
         if (isFile(requestedFile)) {

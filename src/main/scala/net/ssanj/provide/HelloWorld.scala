@@ -14,4 +14,3 @@ object HelloWorld {
     unfiltered.jetty.Server.anylocal.plan(Echo).run
   }
 }
-
