@@ -16,7 +16,9 @@ libraryDependencies ++= Seq(
   "net.databinder.dispatch" %% "dispatch-core" % "0.12.0",
   "ws.unfiltered" %% "unfiltered-scalatest" % unfilteredVersion % "test",
   "org.scalatest"  %% "scalatest"   % "3.0.1"  % "test",
-  "org.scalacheck" %% "scalacheck"  % "1.13.4" % "test"
+  "org.scalacheck" %% "scalacheck"  % "1.13.4" % "test",
+  "ch.qos.logback" % "logback-core" % "1.2.1" % "runtime",
+  "ch.qos.logback" % "logback-classic" % "1.2.1" % "runtime"
 )
 
 scalacOptions ++= Seq(
