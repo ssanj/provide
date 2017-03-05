@@ -1,13 +1,14 @@
 package net.ssanj.provide
 
-import org.slf4j.LoggerFactory
-
 object ProvideMain extends App {
-  val logger = LoggerFactory.getLogger("ProvideMain")
-  logger.info("host: localhost")
-  logger.info("port: 8080")
-  logger.info(s"serving: ${new java.io.File(".").getCanonicalPath}")
-  logger.info("server type: netty")
+  val banner = scala.io.Source.fromInputStream(getClass.getClassLoader.getResourceAsStream("banner.txt")).getLines.mkString("\n")
+  println(banner)
+  println("host: localhost")
+  println("port: 8080")
+  println(s"root: ${new java.io.File(".").getCanonicalPath}")
+  println("server type: netty")
+  println
+  println("add an index.html to the root dir to customise")
   unfiltered.netty.Server.local(8080).plan(NettyFileServerPlan).run
   dispatch.Http.shutdown()
 }
