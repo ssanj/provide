@@ -12,3 +12,8 @@ assemblyMergeStrategy in assembly := {
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)
 }
+
+assemblyOption in assembly := {
+  (assemblyOption in assembly).value.copy(prependShellScript =
+    Some(sbtassembly.AssemblyPlugin.defaultShellScript))
+}
