@@ -1,10 +1,16 @@
 package net.ssanj.provide
 
 import unfiltered.request._
+import java.io.{File => JFile}
+import Defaults.ROOT_INDEX
 
-object JettyFileServerPlan extends unfiltered.filter.Plan with FileServerPlanSupport {
+final class JettyFileServerPlan(path: SystemPath) extends unfiltered.filter.Plan with FileServerPlanSupport {
 
   def intent = {
-    case GET(Path(xs)) => serveFile(xs)
+    case GET(Path("/")) =>
+      if (File.isFile(new JFile(path.value, ROOT_INDEX).getCanonicalFile)) serveFile(path, ROOT_INDEX)
+      else index(path)
+
+    case GET(Path(xs)) => serveFile(path, xs)
   }
 }

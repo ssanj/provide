@@ -7,8 +7,8 @@ import File.{isDir, isFile, mimeType}
 
 trait FileServerPlanSupport {
 
-  def serveFile(file: String): unfiltered.response.ResponseFunction[Any] = {
-    val requestedFile = new JFile(".", file).getCanonicalFile
+  def serveFile(sysPath: SystemPath, file: String): unfiltered.response.ResponseFunction[Any] = {
+    val requestedFile = new JFile(sysPath.path , file).getCanonicalFile
 
     if (isFile(requestedFile)) {
       val contentType = mimeType(requestedFile)
@@ -19,9 +19,7 @@ trait FileServerPlanSupport {
     else BadRequest ~> ResponseString(s"Unknown file: $requestedFile")
   }
 
-  lazy val location = new java.io.File(".").getCanonicalPath
-
-  def index() = Html {
+  def index(sysPath: SystemPath) = Html {
     <html>
       <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -30,7 +28,7 @@ trait FileServerPlanSupport {
       </head>
       <body>
         <div style="font-size: 1000%;text-align: center;font-family: monospace">Pro<span style="color: lightsalmon">v</span>ide</div>
-          <div style="font-size: 120%;text-align: center;font-family: sans-serif;font-weight:lighter">{location}</div>
+          <div style="font-size: 120%;text-align: center;font-family: sans-serif;font-weight:lighter">{sysPath.path}</div>
       </body>
     </html>
   }
