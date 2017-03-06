@@ -25,7 +25,7 @@ object ArgParser {
     op.opt[String]('l', "<location>").
       optional().
       action { (location, config) => config.copy(location  = SystemPath.use(location)) }.
-      text(s"""The directory from which to run Provide on. Defaults to ${currentDir}""")
+      text(s"""The directory from which to run Provide on.Defaults to ${currentDir}""")
   }
 
   lazy val parser = new scopt.OptionParser[ProvideConfig]("Provide") {

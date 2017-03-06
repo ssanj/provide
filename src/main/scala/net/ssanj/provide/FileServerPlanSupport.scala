@@ -33,13 +33,13 @@ trait FileServerPlanSupport {
     </html>
   }
 
-  lazy val faviconBytes: Array[Byte] = {
+  def faviconBytes: Array[Byte] = {
     import scala.collection.mutable.ListBuffer
     import java.io.InputStream
 
     var in: InputStream = null
     try {
-      in  = getClass.getClassLoader.getResourceAsStream("favicon.ico")
+      in  = Thread.currentThread().getContextClassLoader().getResourceAsStream("favicon.ico")
       val buf = ListBuffer[Byte]()
       var b = in.read()
       while (b != -1) {
