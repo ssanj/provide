@@ -14,7 +14,7 @@ object ArgParser {
   }
 
   private def setPort(op: scopt.OptionParser[ProvideConfig]): Unit = {
-    op.arg[Int]("<port>").
+    op.opt[Int]('p', "<port>").
       optional().
       action { (port, config) => config.copy(port  = SystemPort.open(port)) }.
       text(s"""The port to run Provide on. Defaults to ${PORT}""")
@@ -22,7 +22,7 @@ object ArgParser {
 
   private def setLocation(op: scopt.OptionParser[ProvideConfig]): Unit = {
     val currentDir = File.getCanonicalDirPath(LOCATION).getOrElse("<could not be determined>")
-    op.arg[String]("<location>").
+    op.opt[String]('l', "<location>").
       optional().
       action { (location, config) => config.copy(location  = SystemPath.use(location)) }.
       text(s"""The directory from which to run Provide on. Defaults to ${currentDir}""")

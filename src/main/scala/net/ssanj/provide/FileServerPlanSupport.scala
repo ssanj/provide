@@ -32,4 +32,30 @@ trait FileServerPlanSupport {
       </body>
     </html>
   }
+
+  lazy val faviconBytes: Array[Byte] = {
+    import scala.collection.mutable.ListBuffer
+    import java.io.InputStream
+
+    var in: InputStream = null
+    try {
+      in  = getClass.getClassLoader.getResourceAsStream("favicon.ico")
+      val buf = ListBuffer[Byte]()
+      var b = in.read()
+      while (b != -1) {
+        buf.append(b.byteValue)
+        b = in.read()
+      }
+      buf.toArray
+    } finally {
+      if (in != null) in.close
+    }
+  }
+
+  def favicon(): unfiltered.response.ResponseFunction[Any] = {
+    File.mimeType(".ico").fold(BadRequest ~> ResponseString("Unknown mimetype: .ico")){ iconMime =>
+      ContentType(iconMime) ~> ResponseBytes(faviconBytes)
+    }
+
+  }
 }

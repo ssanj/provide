@@ -27,4 +27,6 @@ object File {
   }
 
   def mimeType(file: JFile): String = MimeType.unapply(file).getOrElse("text/plain")
+
+  def mimeType(ext: String): Option[String] = Mime.types.get(ext)
 }
