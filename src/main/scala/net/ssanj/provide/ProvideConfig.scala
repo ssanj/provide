@@ -25,5 +25,14 @@ object SystemPath {
   }
 }
 
+sealed trait ServerType { val name: String }
+object ServerType {
+  def get(name: String): ServerType =
+    if (JettyType.name == name.toLowerCase) JettyType else NettyType
+}
 
-final case class ProvideConfig(port: Option[SystemPort], location: Option[SystemPath])
+case object NettyType extends ServerType { val name = "netty" }
+case object JettyType extends ServerType { val name = "jetty" }
+
+
+final case class ProvideConfig(serverType: Option[ServerType], port: Option[SystemPort], location: Option[SystemPath])

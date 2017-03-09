@@ -13,6 +13,14 @@ object ArgParser {
     }
   }
 
+  private def setServerType(op: scopt.OptionParser[ProvideConfig]): Unit = {
+    op.opt[String]('s', "<server>").
+      optional().
+      action { (serverType, config) =>
+        config.copy(serverType = Option(ServerType.get(serverType)))
+      }.text(s"""The server type to use. Possible values are (netty|jetty). Defaults to ${SERVER_TYPE.name}""")
+  }
+
   private def setPort(op: scopt.OptionParser[ProvideConfig]): Unit = {
     op.opt[Int]('p', "<port>").
       optional().
@@ -32,6 +40,7 @@ object ArgParser {
     head(s"$TITLE")
     toggle("help", Option("h"))(_ => showUsage)(this)
     toggle("version", Option("v"))(_ => println(s"$TITLE"))(this)
+    setServerType(this)
     setPort(this)
     setLocation(this)
     showUsageOnError

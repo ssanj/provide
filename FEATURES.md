@@ -16,3 +16,4 @@ Features
  - [_] Should we support serving from a jar file?
  - [_] Should we support directory browsing?
  - [_] Release to bintray
+ - [_] Write out favicon.ico if one doesn't exist
