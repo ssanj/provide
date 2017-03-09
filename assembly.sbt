@@ -1,4 +1,7 @@
-assemblyJarName in assembly := s"${name.value}-${version.value}"
+assemblyJarName in assembly := {
+  if (version.value.endsWith("SNAPSHOT")) s"${name.value}-${version.value}"
+  else s"${name.value}"
+}
 
 test in assembly := {}
 
