@@ -16,8 +16,8 @@ object File {
   def isDir(file: JFile): Boolean = exists(file) && file.isDirectory
 
   def getCanonicalDir(path: String): Option[JFile] = {
-    val dir = new JFile(path)
-    if (isDir(dir)) Option(dir.getCanonicalFile) else None
+    val dir = new JFile(path).getCanonicalFile
+    if (isDir(dir)) Option(dir) else None
   }
 
   def getCanonicalDirPath(path: String): Option[String] = getCanonicalDir(path).map(_.getCanonicalPath)
