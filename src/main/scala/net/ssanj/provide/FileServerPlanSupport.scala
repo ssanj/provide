@@ -4,19 +4,26 @@ import unfiltered.response._
 import java.io.{File => JFile}
 import java.nio.file.Files
 import File.{isDir, isFile, mimeType}
+import Defaults.ROOT_INDEX
 
 trait FileServerPlanSupport {
 
-  def serveFile(sysPath: SystemPath, file: String): unfiltered.response.ResponseFunction[Any] = {
+  def serveFile(sysPath: SystemPath, file: String): UnfilteredResponse = {
     val requestedFile = new JFile(sysPath.path , file).getCanonicalFile
 
-    if (isFile(requestedFile)) {
-      val contentType = mimeType(requestedFile)
+    def serveExistingFile(existingFile: JFile): UnfilteredResponse = {
+      val contentType = mimeType(existingFile)
       //TODO: We should stream this to the client
-      val byteArray = Files.readAllBytes(requestedFile.toPath)
+      val byteArray = Files.readAllBytes(existingFile.toPath)
       ContentType(contentType) ~> ResponseBytes(byteArray)
-    } else if (isDir(requestedFile)) BadRequest ~> ResponseString(s"Directory browsing is disabled")
-    else BadRequest ~> ResponseString(s"Unknown file: $requestedFile")
+    }
+
+    if (isFile(requestedFile)) serveExistingFile(requestedFile)
+    else if (isDir(requestedFile)) {
+      val dirIndex = new JFile(requestedFile, ROOT_INDEX)
+      if (isFile(dirIndex)) serveExistingFile(dirIndex)
+      else BadRequest ~> ResponseString(s"Directory browsing is disabled")
+    } else BadRequest ~> ResponseString(s"Unknown file: $requestedFile")
   }
 
   def index(sysPath: SystemPath) = Html {
@@ -52,7 +59,7 @@ trait FileServerPlanSupport {
     }
   }
 
-  def favicon(): unfiltered.response.ResponseFunction[Any] = {
+  def favicon(): UnfilteredResponse = {
     File.mimeType(".ico").fold(BadRequest ~> ResponseString("Unknown mimetype: .ico")){ iconMime =>
       ContentType(iconMime) ~> ResponseBytes(faviconBytes)
     }
