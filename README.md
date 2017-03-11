@@ -99,3 +99,19 @@ Then run it via:
 chmod +x provide
 ./provide -h
 ```
+
+### Build from source
+
+Clone this repository:
+
+```
+git clone https://github.com/ssanj/provide
+```
+
+Then from within the repository run:
+
+```
+sbt assembly
+```
+
+This will generate the __provide__ executable in the __target/scala-2.12__ directory.
