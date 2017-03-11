@@ -4,7 +4,7 @@ If you need a quick way to serve any directory as a website then Provide will ma
 
 ## Goals
 
-Quickly serve a directory as a website
+1. Quickly serve a directory as a website.
 
 ## Usage
 
@@ -58,7 +58,7 @@ Usage: Provide [options]
   -s, --<server> <value>   The server type to use. Possible values are (netty|jetty). Defaults to netty
   -p, --<port> <value>     The port to run Provide on. Defaults to 8080
   -l, --<location> <value>
-                           The directory from which to run Provide on.Defaults to /Users/sanj/Downloads/swagger-ui-master/dist
+                           The directory from which to run Provide on.Defaults the current directory
 
 Please see https://github.com/ssanj/provide for more examples.
 ```
@@ -71,7 +71,7 @@ http://localhost:8080/
 
 If there isn't an index.html file in the root directory then Provide will display a simple welcome page:
 
-![Default Index Page](https://github.com/ssanj/provide/index.jpg)
+![Default Index Page](https://github.com/ssanj/provide/blob/master/index.jpg)
 
 ## Installation
 
