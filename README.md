@@ -77,7 +77,7 @@ If there isn't an index.html file in the root directory then Provide will displa
 
 ### Install via a homebrew
 
-Add the provide homebrew tap:
+Add the Provide homebrew tap:
 
 ```
 brew tab ssanj/homebrew-provide
@@ -96,5 +96,6 @@ Download the [executable](https://github.com/ssanj/provide/releases/download/v0.
 Then run it via:
 
 ```
+chmod +x provide
 ./provide -h
 ```
