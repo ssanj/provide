@@ -75,6 +75,8 @@ If there isn't an index.html file in the root directory then Provide will displa
 
 ## Installation
 
+_Provide requires a Java 8 or later JRE_.
+
 ### Install via a homebrew
 
 Add the Provide homebrew tap:
