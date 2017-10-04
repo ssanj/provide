@@ -82,7 +82,7 @@ _Provide requires a Java 8 or later JRE_.
 Add the Provide homebrew tap:
 
 ```
-brew tab ssanj/homebrew-provide
+brew tap ssanj/homebrew-provide
 ```
 
 Install Provide:
